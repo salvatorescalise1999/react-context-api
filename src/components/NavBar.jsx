@@ -13,6 +13,8 @@ function NavBar() {
         { path: '/prodotti', label: 'Prodotti' }
     ]
 
+
+    // Recuperiamo stato globale e funzione per modificarlo
     const { budgetMode, setBudgetMode } = useContext(BudgetContext);
 
 
@@ -28,7 +30,11 @@ function NavBar() {
                 ))}
             </ul>
 
-            <button onClick={() => setBudgetMode(!budgetMode)}>
+            {/* Bottone che togglea budgetMode */}
+            <button
+                onClick={() => setBudgetMode(!budgetMode)} // invertiamo il valore corrente
+            >
+                {/* Testo dinamico in base allo stato */}
                 {budgetMode ? "Disattiva Modalità Budget" : "Attiva Modalità Budget"}
             </button>
         </nav>

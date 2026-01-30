@@ -2,6 +2,9 @@ import axios from "axios"
 import { useState, useEffect } from "react"
 import ProductList from "../components/ProductList"
 
+import { useContext } from "react";
+import { BudgetContext } from "../contexts/BudgetContext";
+
 const endpoint = "https://fakestoreapi.com/products";
 
 
@@ -22,10 +25,21 @@ function Products() {
 
     useEffect(fetchProducts, []);
 
+
+    // Recuperiamo budgetMode dal context
+    const { budgetMode } = useContext(BudgetContext);
+
+    // Filtriamo prodotti in base a budgetMode
+    const filteredProducts = budgetMode
+        ? products.filter((p) => p.price <= 30) // solo prodotti <= 30
+        : products; // altrimenti tutti
+
     return (
         <>
             <h2>Dai un’occhiata ai nostri prodotti 🛍️</h2>
-            <ProductList products={products} />
+
+            {/* Passiamo a ProductList i prodotti filtrati */}
+            <ProductList products={filteredProducts} />
         </>
     )
 }
